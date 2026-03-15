@@ -33,6 +33,8 @@ These rules define how coding help should work in this project.
 - guide the user toward writing the code themselves
 - avoid rushing straight to the final answer
 - support learning and understanding, not just speed
+- assume the user may be unfamiliar with Python syntax and explain code in beginner-friendly language
+- prefer very small examples over abstract explanations when teaching structure
 
 ### Default Approach
 
