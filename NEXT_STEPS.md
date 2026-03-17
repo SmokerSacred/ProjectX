@@ -27,6 +27,7 @@ As of now, the project can:
 - return a clearer message when an invalid file is selected
 - print that output in `main.py`
 - run `pytest` tests for both the no-file-selected case and the invalid-file case
+- have a valid-file success test started but not completed yet
 
 Current file roles:
 
@@ -46,6 +47,7 @@ Current file roles:
 - `try/except` is for risky actions like reading a file.
 - A pytest test needs a discoverable test file, a `test_...` function, and an `assert`.
 - `tmp_path` is a pytest fixture that gives a test a temporary folder for safe file-based testing.
+- a valid success-case test needs a real Excel file written to disk, not just a DataFrame kept in memory.
 
 ---
 
@@ -58,6 +60,7 @@ The code works, but a few small cleanup items are intentionally still open:
 - `read_file()` returns different kinds of values depending on the outcome
 - the current error message is better than before but still includes raw exception text
 - two automated tests now exist, but coverage is still very small
+- the success-case test has been started but is still incomplete
 
 These are good candidates for the next small improvements.
 
@@ -82,7 +85,7 @@ Once the test setup is a little stronger, the next likely steps are:
 
 1. improve error messages in the file-reading stage
 2. make the return behavior more consistent
-3. add a success-case test for a valid Excel file
+3. complete the success-case test for a valid Excel file
 4. prepare for validation rules
 
 ---

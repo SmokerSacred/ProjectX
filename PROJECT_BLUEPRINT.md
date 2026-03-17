@@ -380,6 +380,7 @@ Known current progress:
 - the app now returns a clearer message when an invalid file is selected
 - blank values in selected fields are expected and do not prevent a successful read
 - `pytest` tests now exist for the no-file-selected case and an invalid-file case
+- a success-case test for valid Excel input has been started but is not complete yet
 - the project is already split into smaller files instead of one large script
 - the next immediate improvement is expanding early automated test coverage
 

@@ -10,6 +10,7 @@ Current progress:
 - returns a simple multi-line summary of the loaded file structure
 - returns a clearer message when the selected file cannot be read as Excel
 - includes two `pytest` tests for the no-file-selected case and invalid-file case
+- has a success-case `pytest` test currently in progress for valid Excel input
 
 Current focus:
 
