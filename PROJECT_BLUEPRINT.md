@@ -252,6 +252,10 @@ When helping with implementation, Codex should usually:
 3. let the user attempt it
 4. review and improve it together
 
+### Session Awareness
+- At the start of each new user request, Codex should first check the current project files so it stays aware of the latest state of the codebase.
+- Codex should not assume the files are unchanged from the previous message or session.
+
 ### What To Avoid
 Codex should avoid:
 
@@ -372,10 +376,12 @@ Known current progress:
 
 - `main.py` already calls the file-reading layer after a file is selected
 - the app can now read a selected Excel file with pandas
-- the app currently prints a preview of the first 5 rows using `df.head()`
+- the app now returns a basic multi-line summary with row count, column count, and column names
+- the app now returns a clearer message when an invalid file is selected
 - blank values in selected fields are expected and do not prevent a successful read
+- an initial `pytest` test now exists for the no-file-selected case
 - the project is already split into smaller files instead of one large script
-- the next immediate improvement is safer error handling around failed reads
+- the next immediate improvement is expanding early automated test coverage
 
 That means the project is already past the absolute start.
 The next work should strengthen reliability before adding more logic.

@@ -23,8 +23,10 @@ As of now, the project can:
 - return an empty result if no file is selected
 - pass the selected file path into the file-reading layer
 - read an Excel file with `pandas`
-- return `df.head()` as proof that the file loaded successfully
+- return a simple summary with row count, column count, and column names
+- return a clearer message when an invalid file is selected
 - print that output in `main.py`
+- run a first `pytest` test for the no-file-selected case
 
 Current file roles:
 
@@ -42,6 +44,7 @@ Current file roles:
 - Blank values in some fields are expected and do not automatically mean the file failed to load.
 - `if/else` is for known checks like whether a file path exists.
 - `try/except` is for risky actions like reading a file.
+- A pytest test needs a discoverable test file, a `test_...` function, and an `assert`.
 
 ---
 
@@ -52,8 +55,8 @@ The project is still in an early learning-oriented stage.
 The code works, but a few small cleanup items are intentionally still open:
 
 - `read_file()` returns different kinds of values depending on the outcome
-- the current error message is broad and not very informative
-- successful reads currently show a raw preview instead of a clearer summary
+- the current error message is better than before but still includes raw exception text
+- the first automated test exists, but coverage is still very small
 
 These are good candidates for the next small improvements.
 
@@ -63,29 +66,23 @@ These are good candidates for the next small improvements.
 
 ### Immediate Next Step
 
-Improve the success output from `read_file.py`.
+Expand automated testing for the file-reading layer.
 
-The goal is to move from:
+The next useful tests are:
 
-- raw `df.head()` preview only
+- empty path returns `No file selected`
+- invalid file returns the expected error message
+- valid Excel input returns the expected summary shape
 
-Toward something more intentional, such as:
-
-- confirmation that the file loaded
-- row count
-- column count
-- column headers
-- maybe sheet-related information later
-
-This should stay small and should not jump ahead into cleaning or transformation yet.
+This should stay focused on `read_file.py` before moving into more complex validation logic.
 
 ### After That
 
-Once the success output is clearer, the next likely steps are:
+Once the test setup is a little stronger, the next likely steps are:
 
 1. improve error messages in the file-reading stage
 2. make the return behavior more consistent
-3. begin a basic structure-inspection summary
+3. begin basic validation of required columns
 4. prepare for validation rules
 
 ---
