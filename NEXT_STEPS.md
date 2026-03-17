@@ -26,7 +26,7 @@ As of now, the project can:
 - return a simple summary with row count, column count, and column names
 - return a clearer message when an invalid file is selected
 - print that output in `main.py`
-- run a first `pytest` test for the no-file-selected case
+- run `pytest` tests for both the no-file-selected case and the invalid-file case
 
 Current file roles:
 
@@ -45,6 +45,7 @@ Current file roles:
 - `if/else` is for known checks like whether a file path exists.
 - `try/except` is for risky actions like reading a file.
 - A pytest test needs a discoverable test file, a `test_...` function, and an `assert`.
+- `tmp_path` is a pytest fixture that gives a test a temporary folder for safe file-based testing.
 
 ---
 
@@ -56,7 +57,7 @@ The code works, but a few small cleanup items are intentionally still open:
 
 - `read_file()` returns different kinds of values depending on the outcome
 - the current error message is better than before but still includes raw exception text
-- the first automated test exists, but coverage is still very small
+- two automated tests now exist, but coverage is still very small
 
 These are good candidates for the next small improvements.
 
@@ -70,9 +71,8 @@ Expand automated testing for the file-reading layer.
 
 The next useful tests are:
 
-- empty path returns `No file selected`
-- invalid file returns the expected error message
 - valid Excel input returns the expected summary shape
+- possibly a test for the exact summary fields or formatting
 
 This should stay focused on `read_file.py` before moving into more complex validation logic.
 
@@ -82,7 +82,7 @@ Once the test setup is a little stronger, the next likely steps are:
 
 1. improve error messages in the file-reading stage
 2. make the return behavior more consistent
-3. begin basic validation of required columns
+3. add a success-case test for a valid Excel file
 4. prepare for validation rules
 
 ---
