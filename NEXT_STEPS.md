@@ -26,8 +26,7 @@ As of now, the project can:
 - return a simple summary with row count, column count, and column names
 - return a clearer message when an invalid file is selected
 - print that output in `main.py`
-- run `pytest` tests for both the no-file-selected case and the invalid-file case
-- have a valid-file success test started but not completed yet
+- run `pytest` tests for the no-file-selected, invalid-file, and valid-file cases
 
 Current file roles:
 
@@ -48,6 +47,7 @@ Current file roles:
 - A pytest test needs a discoverable test file, a `test_...` function, and an `assert`.
 - `tmp_path` is a pytest fixture that gives a test a temporary folder for safe file-based testing.
 - a valid success-case test needs a real Excel file written to disk, not just a DataFrame kept in memory.
+- `to_excel(..., index=False)` avoids writing the DataFrame index as an extra Excel column during testing.
 
 ---
 
@@ -59,8 +59,7 @@ The code works, but a few small cleanup items are intentionally still open:
 
 - `read_file()` returns different kinds of values depending on the outcome
 - the current error message is better than before but still includes raw exception text
-- two automated tests now exist, but coverage is still very small
-- the success-case test has been started but is still incomplete
+- three automated tests now exist, but coverage is still still small
 
 These are good candidates for the next small improvements.
 
@@ -74,8 +73,8 @@ Expand automated testing for the file-reading layer.
 
 The next useful tests are:
 
-- valid Excel input returns the expected summary shape
 - possibly a test for the exact summary fields or formatting
+- possibly a test for a file with unexpected columns or blank values
 
 This should stay focused on `read_file.py` before moving into more complex validation logic.
 
@@ -85,7 +84,7 @@ Once the test setup is a little stronger, the next likely steps are:
 
 1. improve error messages in the file-reading stage
 2. make the return behavior more consistent
-3. complete the success-case test for a valid Excel file
+3. begin basic validation of required columns
 4. prepare for validation rules
 
 ---

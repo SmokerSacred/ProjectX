@@ -18,7 +18,7 @@ def test_file_type(tmp_path):
 
 
 def test_success(tmp_path):
-    # In progress: this test is being built to cover a valid Excel success case.
+    # Create a real temporary Excel file so the success path can be tested safely.
     good_file = tmp_path / "good_file.xlsx"
 
     data = {
@@ -27,10 +27,13 @@ def test_success(tmp_path):
         'Department' : ['Support', 'Support', 'Bigboss', 'smallboss1', 'smallboss2']
     }
 
-    df = pd.DataFrame(data)
-    row_count = df.shape[0]
-    column_count = df.shape[1]
-    column_names = df.columns
+    clean_data = pd.DataFrame(data)
+
+    clean_data.to_excel(good_file, index=False)
+
+    row_count = clean_data.shape[0]
+    column_count = clean_data.shape[1]
+    column_names = clean_data.columns
 
 
     result = read_file.read_file(str(good_file))
