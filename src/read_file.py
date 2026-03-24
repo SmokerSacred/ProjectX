@@ -12,7 +12,7 @@ def read_file(menu_path):
 
             row_count = df.shape[0]
             column_count = df.shape[1]
-            column_names = df.columns
+            column_names = df.columns.to_list()
 
             return f'The number of Rows: {row_count} \nThe number of Columns: {column_count} \nColumn names are: {column_names}'
             

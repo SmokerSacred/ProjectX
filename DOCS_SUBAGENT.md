@@ -64,6 +64,7 @@ Each documentation pass should answer these questions clearly:
 - what files own which responsibilities
 - what the next logical step is
 - what future Codex sessions need to know quickly
+- what teaching preferences should be preserved for future Codex sessions
 
 ## Preferred Style
 
@@ -72,6 +73,7 @@ Each documentation pass should answer these questions clearly:
 - separate stable vision from changing status
 - avoid repeating the same paragraph across multiple files
 - preserve the learning-oriented nature of the project
+- preserve explicit user guidance preferences, including whether Codex should avoid giving direct code unless asked
 
 ## Recommended Workflow
 

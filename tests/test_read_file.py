@@ -33,8 +33,13 @@ def test_success(tmp_path):
 
     row_count = clean_data.shape[0]
     column_count = clean_data.shape[1]
-    column_names = clean_data.columns
+    column_names = clean_data.columns.to_list()
 
 
     result = read_file.read_file(str(good_file))
     assert f'The number of Rows: {row_count} \nThe number of Columns: {column_count} \nColumn names are: {column_names}' in result
+
+
+
+
+

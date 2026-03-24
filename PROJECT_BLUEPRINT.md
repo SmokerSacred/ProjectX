@@ -36,6 +36,14 @@ Those sheets may need to be:
 
 Doing that manually is repetitive and error-prone.
 
+The intended workflow may involve multiple spreadsheet types rather than one fixed workbook. At the current stage, the user expects the system to grow in three modules:
+
+- `Menu Items`
+- `Inventory Items`
+- `Recipes`
+
+Current implementation work is focused only on `Menu Items`.
+
 The long-term goal is to create a repeatable process where the user can:
 
 1. choose an Excel file
@@ -97,6 +105,10 @@ The program converts the spreadsheet into the structure actually needed for POS 
 
 The program produces a usable result, such as a cleaned workbook, transformed workbook, or status summary.
 
+In the current project direction, this may mean importing data from one workbook, cleaning or standardizing it, and then populating a separate destination workbook with a similar but controlled structure.
+
+This pattern may later repeat across the three planned modules, but work should stay scoped to one module at a time.
+
 ## Current Development Reality
 
 The project currently has two layers:
@@ -117,6 +129,7 @@ This includes:
 This includes:
 
 - deciding the exact spreadsheet format being targeted
+- deciding how multiple spreadsheet types relate to each other
 - defining required columns
 - defining cleaning rules
 - defining transformation rules
@@ -125,13 +138,36 @@ This includes:
 Layer A is underway.
 Layer B still needs to be written down more precisely as the real workflow becomes clearer.
 
+The project now has one concrete real-world template to anchor validation work:
+
+- a menu item workbook with 30 observed columns
+- user-confirmed optional fields including `Description`, `AlternateName`, `VariantName`, `Type`, `Barcode`, `BarControllerCode`, `Sku`, `IntegrationCode`, `CaptainPrinter`, and `LabelPrinter`
+- a conditional `KitchenPrinter` rule that still needs final confirmation before implementation
+
+The current sequencing is:
+
+1. finish `Menu Items` validation and related workflow understanding
+2. move on later to `Inventory Items`
+3. move on later to `Recipes`
+
+Current `Menu Items` business rules and preferences also include:
+
+- trimming leading and trailing spaces
+- rejecting duplicate entries
+- preferring readable spaced naming such as `Big Fish` instead of `BigFish`
+
+These should be treated as module-specific workflow knowledge. The naming preference is currently a formatting preference rather than a hard validation rule.
+
 ## Working Rules For Codex
 
 When helping on this project, Codex should:
 
 - stay aware of the current repository state before giving advice
+- review the user's current code before suggesting changes
 - prefer small, understandable steps
 - explain logic clearly when the user is learning
+- guide by default instead of jumping straight to finished code
+- only provide direct code when the user explicitly asks for code
 - avoid unnecessary complexity
 - avoid expanding scope beyond the spreadsheet workflow
 
