@@ -18,9 +18,9 @@ The project currently:
 - returns `"No file selected"` if the picker is cancelled
 - passes the selected file path into the file-reading layer
 - reads an Excel file with `pandas`
-- returns a summary with row count, column count, and column names
+- returns a DataFrame on successful file reads
 - returns a clearer invalid-file message when a fake or unreadable Excel file is selected
-- prints the returned message in `main.py`
+- still prints the raw `read_file()` result in `main.py`, which now needs rewiring
 - has `pytest` coverage for the no-file-selected, invalid-file, and valid-file cases
 - now has a real menu item template available to define validation rules from actual business structure instead of guesses
 
@@ -29,6 +29,7 @@ The project currently:
 - `main.py`: top-level app flow
 - `src/select_file.py`: Excel file selection
 - `src/read_file.py`: no-file checks and Excel reading
+- `src/validation.py`: in-progress `Menu Items` structure validation
 - `tests/test_read_file.py`: read-file behavior tests
 
 ## Current Notes
@@ -37,12 +38,13 @@ The project is still in an early learning-oriented stage.
 
 Known rough edges:
 
-- `read_file()` returns plain strings for both success and failure paths
+- `read_file()` now returns mixed types: a DataFrame on success and strings on failure
 - the invalid-file message still includes raw exception text
 - automated test coverage is still small
 - validation rules are only partially defined and need to be confirmed against the real template workflow
 - the larger workflow is planned as three modules: `Menu Items`, `Inventory Items`, and `Recipes`
 - current implementation should stay focused on finishing `Menu Items` before moving to the later modules
+- `main.py` and `tests/test_read_file.py` still need to be updated for the new DataFrame-based read flow
 
 ## Current Validation Notes
 
@@ -94,10 +96,10 @@ Start the first real validation pass using the shared menu item template.
 
 The best first step is:
 
-- write down the first required-column set based on the real template
-- keep the user-confirmed optional fields excluded from that required set
-- confirm the `KitchenPrinter` conditional rule before enforcing it
-- implement simple structure validation before moving into blank-cell validation
+- finish wiring the fixed expected-header list into `src/validation.py`
+- make the structure-validation function report missing headers instead of exact full-list equality
+- connect `main.py` to pass the loaded DataFrame into validation
+- update the outdated read-file success test to match the new return type
 
 This should be done in a way that can later support the other planned modules, but without expanding scope beyond `Menu Items` right now.
 

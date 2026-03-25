@@ -27,6 +27,7 @@ The menu item template is only the first confirmed input type, and current work 
 - `main.py` drives the top-level flow
 - `src/select_file.py` opens the Excel file picker
 - `src/read_file.py` handles the no-file case and reads Excel data with `pandas`
+- `src/validation.py` is the start of the `Menu Items` structure-validation layer
 - `tests/test_read_file.py` covers the current read-file behavior with `pytest`
 
 ## Current Behavior
@@ -36,8 +37,14 @@ Right now the project can:
 - open a file picker limited to `.xlsx`
 - return `"No file selected"` if the picker is cancelled
 - read a selected Excel file with `pandas`
-- return a text summary containing row count, column count, and column names
+- return a `pandas` DataFrame on a successful read
 - return a friendly invalid-file message when a fake or unreadable Excel file is selected
+
+Current implementation note:
+
+- `main.py` has not been rewired yet for the new DataFrame-based flow
+- `src/validation.py` is being built to compare uploaded headers against the fixed `Menu Items` header list
+- the structure-validation function is not complete yet
 
 ## Current Constraints
 
