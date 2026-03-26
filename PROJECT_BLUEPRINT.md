@@ -168,6 +168,10 @@ When helping on this project, Codex should:
 - explain logic clearly when the user is learning
 - guide by default instead of jumping straight to finished code
 - only provide direct code when the user explicitly asks for code
+- teach more like a patient instructor when the user is stuck, not just point out mistakes
+- give stronger guided hints about the next concrete move when the user is confused
+- when several reasonable approaches exist, offer a few guided options and explain the tradeoffs so the user can choose
+- when the user is stuck on syntax or API shape, explain the relevant tool or parameter names instead of only describing the concept abstractly
 - avoid unnecessary complexity
 - avoid expanding scope beyond the spreadsheet workflow
 

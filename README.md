@@ -2,7 +2,7 @@
 
 ProjectX is a small Python desktop utility for restaurant and POS spreadsheet support work.
 
-The current build is focused on one simple foundation: choose an Excel file, read it safely, and report a basic structural summary before deeper validation or cleaning logic is added.
+The current build is focused on the first working path for the `Menu Items` module: choose an Excel file, read it safely, validate its structure against the expected header set, and stop cleanly when the file cannot be read.
 
 ## Current Status
 
@@ -11,9 +11,11 @@ The project can currently:
 - open a file picker for `.xlsx` files
 - handle the case where no file is selected
 - read an Excel file with `pandas`
-- return a simple multi-line summary of row count, column count, and column names
+- stop cleanly when the selected file cannot be read
+- validate a successfully read file against the expected `Menu Items` headers
+- report which required headers are missing
 - return a clearer message when the selected file cannot be read as Excel
-- run `pytest` tests for the no-file-selected, invalid-file, and valid-file paths
+- run `pytest` tests for the earlier read-file paths, though the success-path test now needs updating for the DataFrame-based flow
 
 ## Project Docs
 
@@ -37,6 +39,6 @@ pytest
 
 ## Current Focus
 
-- improve file-read error handling without adding unnecessary complexity
-- expand early test coverage around summary output and messy spreadsheet inputs
-- prepare for a later validation layer for required columns and file structure
+- keep the `Menu Items` module moving through one clean working path
+- build the next validation/cleaning step after structure validation
+- update tests and docs to match the newer DataFrame-based read flow

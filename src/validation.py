@@ -5,6 +5,7 @@ def structure_validation(df):
 
     missing_values = []
 
+    # Collect every expected header that is missing from the uploaded file.
     for i in expected_values:
         if i not in column_headers:
             missing_values.append(i)

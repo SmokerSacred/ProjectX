@@ -20,7 +20,9 @@ The project currently:
 - reads an Excel file with `pandas`
 - returns a DataFrame on successful file reads
 - returns a clearer invalid-file message when a fake or unreadable Excel file is selected
-- still prints the raw `read_file()` result in `main.py`, which now needs rewiring
+- stops cleanly in `main.py` when file reading fails
+- validates uploaded `Menu Items` files against the expected header list
+- reports the exact missing headers when structure validation fails
 - has `pytest` coverage for the no-file-selected, invalid-file, and valid-file cases
 - now has a real menu item template available to define validation rules from actual business structure instead of guesses
 
@@ -29,7 +31,7 @@ The project currently:
 - `main.py`: top-level app flow
 - `src/select_file.py`: Excel file selection
 - `src/read_file.py`: no-file checks and Excel reading
-- `src/validation.py`: in-progress `Menu Items` structure validation
+- `src/validation.py`: `Menu Items` structure validation
 - `tests/test_read_file.py`: read-file behavior tests
 
 ## Current Notes
@@ -44,7 +46,7 @@ Known rough edges:
 - validation rules are only partially defined and need to be confirmed against the real template workflow
 - the larger workflow is planned as three modules: `Menu Items`, `Inventory Items`, and `Recipes`
 - current implementation should stay focused on finishing `Menu Items` before moving to the later modules
-- `main.py` and `tests/test_read_file.py` still need to be updated for the new DataFrame-based read flow
+- `tests/test_read_file.py` still needs to be updated for the new DataFrame-based read flow
 
 ## Current Validation Notes
 
@@ -92,20 +94,20 @@ Future ideas, not current priority:
 
 ## Immediate Next Step
 
-Start the first real validation pass using the shared menu item template.
+Move from structure validation into the next `Menu Items` validation or cleaning step.
 
 The best first step is:
 
-- finish wiring the fixed expected-header list into `src/validation.py`
-- make the structure-validation function report missing headers instead of exact full-list equality
-- connect `main.py` to pass the loaded DataFrame into validation
+- choose the next concrete rule after structure validation
+- likely candidates are duplicate detection or trimming leading and trailing spaces
 - update the outdated read-file success test to match the new return type
+- keep the next change scoped to `Menu Items` only
 
 This should be done in a way that can later support the other planned modules, but without expanding scope beyond `Menu Items` right now.
 
 ## After That
 
-Once basic structure validation exists, the next likely improvements are:
+Once the next `Menu Items` validation step exists, the next likely improvements are:
 
 1. confirm conditional field rules such as `KitchenPrinter`
 2. begin blank-cell validation for non-optional fields

@@ -39,12 +39,14 @@ Right now the project can:
 - read a selected Excel file with `pandas`
 - return a `pandas` DataFrame on a successful read
 - return a friendly invalid-file message when a fake or unreadable Excel file is selected
+- validate the uploaded `Menu Items` file structure against the fixed expected header list
+- report the exact missing headers when structure validation fails
 
 Current implementation note:
 
-- `main.py` has not been rewired yet for the new DataFrame-based flow
-- `src/validation.py` is being built to compare uploaded headers against the fixed `Menu Items` header list
-- the structure-validation function is not complete yet
+- `main.py` now stops cleanly if file reading fails before validation runs
+- `src/validation.py` compares uploaded headers against the fixed `Menu Items` header list
+- the next likely step is content-level validation or cleaning after structure validation
 
 ## Current Constraints
 
@@ -154,6 +156,10 @@ When helping on this project:
 - explain logic clearly when teaching is useful
 - guide by default instead of providing direct code immediately
 - only give direct code when the user explicitly asks for it
+- when the user is stuck, explain the solution path more like a teacher instead of only describing what is wrong
+- give more concrete guided hints when the user does not yet know what to write next
+- when there are multiple valid approaches, offer a few concrete options and explain why one may fit better
+- when the user is blocked on syntax or library usage, name the relevant methods or parameters so the user has something real to work with
 - avoid broad feature expansion outside the spreadsheet workflow
 - treat the docs as a running record of real progress, not aspirational plans
 

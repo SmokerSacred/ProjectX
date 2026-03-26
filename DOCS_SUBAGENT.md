@@ -74,6 +74,8 @@ Each documentation pass should answer these questions clearly:
 - avoid repeating the same paragraph across multiple files
 - preserve the learning-oriented nature of the project
 - preserve explicit user guidance preferences, including whether Codex should avoid giving direct code unless asked
+- preserve teaching preferences, including that Codex should teach more like an instructor when the user is stuck and give more concrete guided hints
+- preserve the preference that Codex should sometimes offer multiple guided options and mention relevant syntax or parameter names when the user is blocked
 
 ## Recommended Workflow
 
