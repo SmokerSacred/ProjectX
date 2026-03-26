@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def read_file(menu_path):
      # Stop early if the user closes the file picker without choosing a file.
      if not menu_path : 

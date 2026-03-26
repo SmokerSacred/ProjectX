@@ -1,8 +1,6 @@
-from src import read_file
-
 expected_values = ["ItemName", "Description", "AlternateName", "VariantName", "Category", "SubCategory", "Type", "Barcode", "BarControllerCode", "Sku", "IntegrationCode", "Price", "Cost", "IsOpenPrice", "MaxPrice", "MinPrice", "AskQuantity", "CanApplyDiscount", "AutoApplySameDiscountOnModifier", "IsRateInclusive", "TaxGroup", "PrintOnReceipt", "ExcludeFromTopSellingItems", "PrintOnKot", "KitchenPrinter", "PrintOnLabel", "InventoryCount", "SoldByWeight", "CaptainPrinter", "LabelPrinter", "HideContactless", "IsModifierItem", "Inactive", "Menu", "MenuGroup", "MenuSubgroup", "ItemGroup"] 
 
-def sturctured_validation(df):
+def structure_validation(df):
     column_headers = df.columns.to_list()
 
     missing_values = []
@@ -10,4 +8,8 @@ def sturctured_validation(df):
     for i in expected_values:
         if i not in column_headers:
             missing_values.append(i)
-    return f'Could not detect the following columns: {missing_values}'
+
+    if not missing_values:
+        return 'The file has been uploaded successfully. Please have some patience while we clean up your file'
+    else:
+        return f'Could not detect the following columns: {missing_values}'
