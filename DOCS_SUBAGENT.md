@@ -55,6 +55,10 @@ Refresh the documentation when:
 - a new project decision was made
 - the handoff context for future chats would otherwise become stale
 
+Do not update docs on every small interaction.
+
+Only update them at valid points, when there is actual progress or a real project-rule change worth preserving.
+
 ## Update Goals
 
 Each documentation pass should answer these questions clearly:

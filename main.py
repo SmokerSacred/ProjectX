@@ -1,4 +1,4 @@
-from src import select_file, read_file, validation
+from src import select_file, read_file, validation, clean_file
 import sys
 
 # Ask the user for an Excel file, then pass that path to the read layer.
@@ -10,7 +10,12 @@ if isinstance(file_output, str):
     sys.exit(file_output)
 
 # Validate the uploaded file structure only after the read step succeeds.
-file_validation = validation.structure_validation(file_output)
+validation_result = validation.structure_validation(file_output)
 
-# Print either the preview data or a clear status/error message.
-print(file_validation)
+if validation_result is None:
+    clean_data = clean_file.clean_duplicates(file_output)
+    # Print either the preview data or a clear status/error message.
+    print(clean_data)
+
+else:
+    print(validation_result)

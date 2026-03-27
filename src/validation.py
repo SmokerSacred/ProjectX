@@ -11,6 +11,6 @@ def structure_validation(df):
             missing_values.append(i)
 
     if not missing_values:
-        return 'The file has been uploaded successfully. Please have some patience while we clean up your file'
+        return None
     else:
         return f'Could not detect the following columns: {missing_values}'
