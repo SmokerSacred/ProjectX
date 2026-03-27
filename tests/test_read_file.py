@@ -1,12 +1,15 @@
 from src import read_file
 import pandas as pd
 
+
 def test_read_file():
     # An empty path should be treated the same as cancelling file selection.
     result = read_file.read_file("")
 
     assert result == 'No file selected'
 
+
+def test_file_type(monkeypatch):
 def test_file_type(tmp_path):
     # Create a temporary fake .xlsx file so the error path can be tested safely.
     bad_file = tmp_path / 'bad_file.xlsx'
@@ -38,8 +41,3 @@ def test_success(tmp_path):
 
     result = read_file.read_file(str(good_file))
     assert f'The number of Rows: {row_count} \nThe number of Columns: {column_count} \nColumn names are: {column_names}' in result
-
-
-
-
-

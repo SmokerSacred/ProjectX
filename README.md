@@ -2,43 +2,47 @@
 
 ProjectX is a small Python desktop utility for restaurant and POS spreadsheet support work.
 
-The current build is focused on the first working path for the `Menu Items` module: choose an Excel file, read it safely, validate its structure against the expected header set, and stop cleanly when the file cannot be read.
+Right now the project is focused on the `Menu Items` module:
 
-## Current Status
+- select an `.xlsx` file
+- read it safely with `pandas`
+- stop cleanly if the file cannot be read
+- validate the file against the expected `Menu Items` header list
 
-The project can currently:
+## Current Entry Point
 
-- open a file picker for `.xlsx` files
-- handle the case where no file is selected
-- read an Excel file with `pandas`
-- stop cleanly when the selected file cannot be read
-- validate a successfully read file against the expected `Menu Items` headers
-- report which required headers are missing
-- return a clearer message when the selected file cannot be read as Excel
-- run `pytest` tests for the earlier read-file paths, though the success-path test now needs updating for the DataFrame-based flow
-
-## Project Docs
-
-- `README.md`: quick overview and current entry points
-- `CONTEXT.md`: short handoff context for future Codex chats
-- `PROJECT_BLUEPRINT.md`: stable project goals, assumptions, and scope
-- `NEXT_STEPS.md`: current progress snapshot and recommended next work
-- `DOCS_SUBAGENT.md`: rules for a docs-only subagent that updates project documentation
-
-## Run The Project
+Run the app:
 
 ```powershell
 python main.py
 ```
 
-## Run Tests
+Run tests:
 
 ```powershell
 pytest
 ```
 
-## Current Focus
+## Current Code Areas
 
-- keep the `Menu Items` module moving through one clean working path
-- build the next validation/cleaning step after structure validation
-- update tests and docs to match the newer DataFrame-based read flow
+- `main.py`: top-level flow
+- `src/select_file.py`: file picker
+- `src/read_file.py`: file reading and read errors
+- `src/validation.py`: structure validation for `Menu Items`
+- `src/clean_file.py`: early duplicate-check stub
+- `tests/test_read_file.py`: current read-file tests
+
+## Current Status
+
+- structure validation is wired into the app
+- duplicate cleaning is started but not wired in yet
+- `read_file()` now returns a DataFrame on success
+- the read-file success test is stale and needs updating
+
+## Project Docs
+
+- `README.md`: quick repo overview
+- `CONTEXT.md`: Codex handoff context
+- `NEXT_STEPS.md`: immediate next work
+- `PROJECT_BLUEPRINT.md`: roadmap and longer-term direction
+- `DOCS_SUBAGENT.md`: docs-only update rules

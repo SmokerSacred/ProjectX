@@ -1,72 +1,55 @@
 # ProjectX Context
 
-This file is the fastest way to hand ProjectX context to Codex in a new chat.
+This file is for future Codex chats.
 
-## Project Purpose
+Use it to understand what the project is, what code currently does, and how to continue without re-discovering the same context.
 
-ProjectX is a small Python desktop utility for restaurant and POS spreadsheet support work.
+## What We Are Building
 
-The goal is to take messy human-filled Excel files and move toward a repeatable workflow for:
+ProjectX is a spreadsheet workflow tool for restaurant and POS support work.
 
-- selecting a workbook
-- reading it safely
-- checking whether the structure is usable
-- cleaning or standardizing data later
-- preparing the data for downstream POS-related work
+The intended pattern is:
 
-The broader workflow is not limited to one file type. The user expects the system to be built in three modules over time:
+1. import or select a source workbook
+2. read it safely
+3. validate that the structure is usable
+4. clean and standardize the data
+5. prepare or populate a cleaner downstream output file
+
+This will eventually exist across three modules:
 
 - `Menu Items`
 - `Inventory Items`
 - `Recipes`
 
-The menu item template is only the first confirmed input type, and current work should stay focused on that module until its validation flow is in a good place.
+Current work is still focused only on `Menu Items`.
 
-## Current Architecture
+## Current App Behavior
 
-- `main.py` drives the top-level flow
-- `src/select_file.py` opens the Excel file picker
-- `src/read_file.py` handles the no-file case and reads Excel data with `pandas`
-- `src/validation.py` is the start of the `Menu Items` structure-validation layer
-- `tests/test_read_file.py` covers the current read-file behavior with `pytest`
+The app currently:
 
-## Current Behavior
+- opens a file picker for `.xlsx` files
+- returns `"No file selected"` if the picker is cancelled
+- reads the chosen file with `pandas`
+- returns a DataFrame on successful reads
+- exits cleanly if reading fails
+- validates the uploaded file against the expected `Menu Items` headers
+- reports missing headers clearly
 
-Right now the project can:
+## Current Code Map
 
-- open a file picker limited to `.xlsx`
-- return `"No file selected"` if the picker is cancelled
-- read a selected Excel file with `pandas`
-- return a `pandas` DataFrame on a successful read
-- return a friendly invalid-file message when a fake or unreadable Excel file is selected
-- validate the uploaded `Menu Items` file structure against the fixed expected header list
-- report the exact missing headers when structure validation fails
+- `main.py`: select file -> read file -> validate structure -> print result
+- `src/select_file.py`: Tkinter file picker
+- `src/read_file.py`: read logic and friendly error messages
+- `src/validation.py`: `expected_values` list and structure validation
+- `src/clean_file.py`: unfinished duplicate-check function
+- `tests/test_read_file.py`: read-file tests, with a stale success test
 
-Current implementation note:
+## Current Source Of Truth
 
-- `main.py` now stops cleanly if file reading fails before validation runs
-- `src/validation.py` compares uploaded headers against the fixed `Menu Items` header list
-- the next likely step is content-level validation or cleaning after structure validation
+For `Menu Items`, the current header source of truth is [`src/validation.py`](/c:/Users/ADMIN/Documents/ProjectX/src/validation.py#L1).
 
-## Current Constraints
-
-- the project is intentionally small and learning-oriented
-- clarity is preferred over cleverness
-- reliability comes before convenience features
-- business validation rules are not fully defined yet
-- code changes should stay incremental and easy to understand
-
-## Known Template
-
-The current real-world validation target is a menu item Excel template shared by the user on March 24, 2026.
-
-Observed sheet details:
-
-- workbook has one sheet named `Sheet1`
-- header row currently contains 30 columns
-- sample data exists in the file, so the template is usable as both a structure reference and a realistic validation example
-
-Current known header set:
+The current expected columns are:
 
 - `ItemName`
 - `Description`
@@ -98,82 +81,59 @@ Current known header set:
 - `SoldByWeight`
 - `CaptainPrinter`
 - `LabelPrinter`
+- `HideContactless`
+- `IsModifierItem`
+- `Inactive`
+- `Menu`
+- `MenuGroup`
+- `MenuSubgroup`
+- `ItemGroup`
 
-User-confirmed optional fields so far:
+All of those columns belong to the current menu item files.
 
-- `Description`
-- `AlternateName`
-- `VariantName`
-- `Type`
-- `Barcode`
-- `BarControllerCode`
-- `Sku`
-- `IntegrationCode`
-- `CaptainPrinter`
-- `LabelPrinter`
+## Known Rules And Preferences
 
-Validation note:
+Current `Menu Items` rules/preferences from the user:
 
-- `ItemGroup` was mentioned by the user as optional, but it does not appear in the current template header list
-- `KitchenPrinter` is conditional
-- the user initially described `KitchenPrinter` as required only if `PrintOnKot` is set to `No`
-- the sample rows in the template show `PrintOnKot = Yes` together with `KitchenPrinter = KOT`, so this rule still needs confirmation before it is enforced in code
+- trim leading and trailing spaces
+- detect or reject duplicate entries
+- prefer readable names with spaces, such as `Big Fish` instead of `BigFish`
 
-## Menu Items Rules
+Current note:
 
-For the current `Menu Items` module, the user has identified these business rules and preferences:
+- the spaced-name preference is a formatting preference, not a validation blocker
+- `KitchenPrinter` still needs row-level rule confirmation later
 
-- no leading or trailing empty space in values
-- no duplicate entries
-- prefer title-style naming with spaces between words, such as `Big Fish` instead of `BigFish`
+## Important Current Reality
 
-Formatting note:
+- the app only does structure validation right now
+- duplicate handling is started but not finished
+- docs should follow the code and direct user instructions
+- the user prefers small, clear steps and teaching-oriented guidance
+- avoid expanding scope beyond the spreadsheet workflow
 
-- the `Big Fish` preference is currently a formatting preference, not a validation blocker
+## Non-Negotiable Codex Rule
 
-Future todo, not current priority:
+- Codex must not change code in the user's code files without the user's clear approval
+- without approval, Codex may only add comments in code files
+- this rule must not be broken
 
-- if the uploaded file only contains a smaller core set such as item name, price, category, and subcategory, the system may later auto-populate the other default-style fields such as `Yes`, `No`, and `0`
-- the project may later accept non-Excel input formats
+## Teaching Rules For Codex
 
-## Workflow Direction
+- Codex is acting as the user's teacher, not just a fixer
+- do not give direct code answers by default
+- do not leave the user stranded when they are struggling
+- when something is missing in the user's code, explain the relevant syntax, method, or parameter name so the user has something concrete to work with
+- if there is a teaching moment, guide the user through it instead of only saying that something is wrong
+- give hints that are strong enough to unblock the user while still letting the user make the final coding decision
+- it is okay to use simple examples outside the current codebase when that would make the concept easier to understand
+- when the user is stuck on a method, explain what commonly goes with it and what each important argument is doing
 
-The user's current mental model is:
+## If You Update The Project
 
-- data will be scraped or imported from one source file
-- that imported data will be cleaned or standardized
-- the cleaned data will populate a separate output copy or template file
-- this overall pattern will later exist across three modules: `Menu Items`, `Inventory Items`, and `Recipes`
+After meaningful changes, update:
 
-This means the project is moving toward a multi-module spreadsheet workflow rather than a single-file checker.
-
-## Working Style
-
-When helping on this project:
-
-- prefer small steps over large rewrites
-- review the current code before suggesting changes
-- explain logic clearly when teaching is useful
-- guide by default instead of providing direct code immediately
-- only give direct code when the user explicitly asks for it
-- when the user is stuck, explain the solution path more like a teacher instead of only describing what is wrong
-- give more concrete guided hints when the user does not yet know what to write next
-- when there are multiple valid approaches, offer a few concrete options and explain why one may fit better
-- when the user is blocked on syntax or library usage, name the relevant methods or parameters so the user has something real to work with
-- avoid broad feature expansion outside the spreadsheet workflow
-- treat the docs as a running record of real progress, not aspirational plans
-
-## Useful Commands
-
-```powershell
-python main.py
-pytest
-```
-
-## Documentation Update Rule
-
-If the project changes meaningfully, update:
-
-- `README.md` for the quick overview if user-facing behavior changed
-- `CONTEXT.md` for new-chat handoff context
-- `NEXT_STEPS.md` for the current snapshot and immediate next work
+- `README.md` if the repo overview changed
+- `CONTEXT.md` if future Codex needs new handoff context
+- `NEXT_STEPS.md` if the immediate next move changed
+- `PROJECT_BLUEPRINT.md` if roadmap or direction changed
