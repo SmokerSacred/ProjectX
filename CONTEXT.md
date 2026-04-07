@@ -35,6 +35,7 @@ The app currently:
 - exits cleanly if reading fails
 - validates the uploaded file against the expected `Menu Items` headers
 - reports missing headers clearly
+- runs duplicate-cleaning logic after structure validation succeeds
 
 ## Current Code Map
 
@@ -42,7 +43,7 @@ The app currently:
 - `src/select_file.py`: Tkinter file picker
 - `src/read_file.py`: read logic and friendly error messages
 - `src/validation.py`: `expected_values` list and structure validation
-- `src/clean_file.py`: unfinished duplicate-check function
+- `src/clean_file.py`: duplicate-cleaning logic and a trimming helper
 - `tests/test_read_file.py`: read-file tests, with a stale success test
 
 ## Current Source Of Truth
@@ -91,6 +92,9 @@ The current expected columns are:
 
 All of those columns belong to the current menu item files.
 
+`ItemGroup` is used to group related variants or items under a shared parent grouping label.
+For example, `JW Red Label` sold in tots, `750ml`, and `1L` can share the same `ItemGroup` value of `JW Red Label`.
+
 ## Known Rules And Preferences
 
 Current `Menu Items` rules/preferences from the user:
@@ -98,6 +102,7 @@ Current `Menu Items` rules/preferences from the user:
 - trim leading and trailing spaces
 - detect or reject duplicate entries
 - prefer readable names with spaces, such as `Big Fish` instead of `BigFish`
+- treat `ItemGroup` as a parent grouping label for related variants/items
 
 Current note:
 
@@ -106,8 +111,9 @@ Current note:
 
 ## Important Current Reality
 
-- the app only does structure validation right now
-- duplicate handling is started but not finished
+- the app does structure validation and then runs duplicate-cleaning logic
+- whitespace trimming is present as a helper but is not yet wired into the app flow
+- `ItemGroup` should stay out of the safe trimming list for now because the sample workbook was blank-heavy there and pandas inferred it as `float`, which makes `.str.strip()` fail
 - docs should follow the code and direct user instructions
 - the user prefers small, clear steps and teaching-oriented guidance
 - avoid expanding scope beyond the spreadsheet workflow

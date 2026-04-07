@@ -13,8 +13,9 @@ if isinstance(file_output, str):
 validation_result = validation.structure_validation(file_output)
 
 if validation_result is None:
-    clean_data = clean_file.clean_duplicates(file_output)
-    # Print either the preview data or a clear status/error message.
+    trimmed_data = clean_file.trim_whitespace(file_output)
+    clean_data = clean_file.clean_duplicates(trimmed_data)
+    # Print the cleaned data plus any same-name rows that still need review.
     print(clean_data)
 
 else:

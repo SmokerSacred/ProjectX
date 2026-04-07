@@ -16,9 +16,7 @@ def test_structure_validation_success():
 
     result = validation.structure_validation(frame)
 
-    assert result == (
-        "The file has been uploaded successfully. Please have some patience while we clean up your file"
-    )
+    assert result is None
 
 
 def test_structure_validation_missing_columns():

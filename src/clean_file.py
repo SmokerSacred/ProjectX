@@ -1,3 +1,5 @@
+values_to_trim = ["ItemName", "Category", "SubCategory", "IsOpenPrice", "AskQuantity", "CanApplyDiscount", "AutoApplySameDiscountOnModifier", "IsRateInclusive", "TaxGroup", "PrintOnReceipt", "ExcludeFromTopSellingItems", "PrintOnKot", "KitchenPrinter", "PrintOnLabel", "SoldByWeight", "HideContactless", "IsModifierItem", "Inactive", "Menu", "MenuGroup", "MenuSubgroup"]
+
 def clean_duplicates(df):
     # First pass: remove rows that are true duplicates of the same item at the same price.
     exact_duplicates_removed = df.drop_duplicates(subset=['ItemName', 'Price'], keep='first')
@@ -10,7 +12,11 @@ def clean_duplicates(df):
     # Return the cleaned data plus the rows that need special handling downstream.
     return exact_duplicates_removed, dirty_duplicate_rows
 
-values_to_trim = ["ItemName", "Description", "AlternateName", "VariantName", "Category", "SubCategory", "Type", "Barcode", "BarControllerCode", "IsOpenPrice", "AskQuantity", "CanApplyDiscount", "AutoApplySameDiscountOnModifier", "IsRateInclusive", "TaxGroup", "PrintOnReceipt", "ExcludeFromTopSellingItems", "PrintOnKot", "KitchenPrinter", "PrintOnLabel", "SoldByWeight", "CaptainPrinter", "LabelPrinter", "HideContactless", "IsModifierItem", "Inactive", "Menu", "MenuGroup", "MenuSubgroup", "ItemGroup"]
 
-def trim_whitespace():
-    None
+def trim_whitespace(df):
+    # Trim leading and trailing spaces only in the text-like columns we expect.
+    for i in values_to_trim:
+        df[i] = df[i].str.strip()
+
+    # Return the same DataFrame so later cleaning steps can keep chaining.
+    return df

@@ -12,29 +12,32 @@ Working now:
 - clean stop on read failure
 - `Menu Items` structure validation against `src/validation.py`
 - duplicate detection after structure validation
+- duplicate-cleaning output from `main.py`
 
 Not done yet:
 
-- trimming values
+- wiring trimming into the app flow
+- deciding how to handle `ItemGroup` during trimming without triggering pandas string errors
 - row-level validation beyond headers
-- deciding whether duplicate handling should only report or also remove duplicates
+- deciding whether duplicate handling should also be surfaced separately from the cleaned output
 
 ## Immediate Next Task
 
-Decide the next cleaning step after duplicate detection.
+Decide where trimming should enter the cleaning flow.
 
 That likely means:
 
-1. decide whether value trimming should happen before any later duplicate removal logic
-2. confirm whether duplicates should only be reported or automatically cleaned
-3. begin trimming leading and trailing spaces
-4. keep the flow scoped to `Menu Items`
+1. decide whether trimming should happen before or after duplicate cleanup
+2. confirm whether duplicate rows should be reported separately from the cleaned output
+3. keep `ItemGroup` out of the safe trimming list until type handling is explicit
+4. wire the trimming helper into the app flow
+5. keep the flow scoped to `Menu Items`
 
 ## After That
 
 Next likely work:
 
-1. trim leading and trailing spaces
+1. wire in trimming of leading and trailing spaces with column-type awareness
 2. confirm row-level rules for `KitchenPrinter`
 3. begin blank-cell validation for important fields
 4. update or expand tests once the flow settles

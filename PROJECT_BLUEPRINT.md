@@ -44,7 +44,7 @@ Planned progression:
 
 1. stable file selection and reading
 2. structure validation against the expected template
-3. duplicate detection
+3. duplicate detection and duplicate reporting
 4. trimming and normalization
 5. row-level business validation
 6. cleaned output preparation
