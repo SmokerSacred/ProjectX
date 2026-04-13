@@ -1,4 +1,4 @@
-from src import select_file, read_file, validation, clean_file
+from src import select_file, read_file, validation, clean_file, populate
 import sys
 
 # Ask the user for an Excel file, then pass that path to the read layer.
