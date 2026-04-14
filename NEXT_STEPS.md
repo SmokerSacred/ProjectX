@@ -1,50 +1,62 @@
 # ProjectX Next Steps
 
-This file is for the next Codex session to know what to do next.
+This file is for the next Codex session to know what to work on next without re-reading the whole project.
 
 ## Current Working State
 
-Working now:
+The current app flow is:
+
+1. pick an `.xlsx` file
+2. read it with `pandas`
+3. stop cleanly on read failure
+4. validate `Menu Items` headers
+5. trim whitespace on the current safe column list
+6. run duplicate cleaning
+7. print the cleaned data plus duplicate-review rows
+
+What is already working:
 
 - file picker for `.xlsx`
 - no-file-selected handling
 - Excel read with `pandas`
 - clean stop on read failure
-- `Menu Items` structure validation against `src/validation.py`
-- duplicate detection after structure validation
-- duplicate-cleaning output from `main.py`
+- structure validation against `src/validation.py`
+- whitespace trimming on the current safe text-column list
+- duplicate cleaning and duplicate-review output from `main.py`
 
-Not done yet:
+What is not finished yet:
 
-- wiring trimming into the app flow
-- deciding how to handle `ItemGroup` during trimming without triggering pandas string errors
-- row-level validation beyond headers
-- deciding whether duplicate handling should also be surfaced separately from the cleaned output
+- `src/populate.py` is still incomplete
+- population/default filling is not wired into the main flow
+- row-level business validation does not exist yet
+- duplicate handling is not yet surfaced in a final user-friendly output format
+- tests currently cover read/validation only
 
-## Immediate Next Task
+## Immediate Next Focus
 
-Decide where trimming should enter the cleaning flow.
+The next real area of work should be the population step for `Menu Items`.
 
 That likely means:
 
-1. decide whether trimming should happen before or after duplicate cleanup
-2. confirm whether duplicate rows should be reported separately from the cleaned output
-3. keep `ItemGroup` out of the safe trimming list until type handling is explicit
-4. wire the trimming helper into the app flow
-5. keep the flow scoped to `Menu Items`
+1. finish a first usable version of `src/populate.py`
+2. make it fill blank cells only
+3. preserve values that already exist
+4. handle `KitchenPrinter` as a conditional rule instead of a simple fixed default
+5. decide what the function should return so later export/highlighting work is still possible
 
-## After That
+## After Population
 
-Next likely work:
+Once the first population flow exists, the next likely work is:
 
-1. wire in trimming of leading and trailing spaces with column-type awareness
-2. confirm row-level rules for `KitchenPrinter`
-3. begin blank-cell validation for important fields
-4. update or expand tests once the flow settles
+1. wire population into `main.py` after cleanup
+2. define row-level rules for important fields
+3. improve how duplicate-review rows are surfaced
+4. expand tests around cleaning and population behavior
 
-## Things To Remember
+## Things Future Codex Should Remember
 
-- all columns in `src/validation.py` are part of the real menu item files
-- keep scope on `Menu Items`
-- do small changes, not big rewrites
-- prefer clarity over cleverness
+- keep scope on `Menu Items` for now
+- do not treat this file like a roadmap; use it for the next practical move
+- preserve the user's Codex rules and teaching preferences from `CONTEXT.md`
+- keep `ItemGroup` out of the safe trimming list until type handling is explicit
+- docs should help the next session move forward, not just repeat other docs

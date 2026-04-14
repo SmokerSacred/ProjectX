@@ -1,50 +1,46 @@
 # ProjectX
 
-ProjectX is a small Python desktop utility for restaurant and POS spreadsheet support work.
+ProjectX is a Python spreadsheet workflow tool for restaurant and POS support work.
 
-Right now the project is focused on the `Menu Items` module:
+The current focus is the `Menu Items` workflow: selecting an Excel file, reading it safely, validating the expected structure, cleaning the data, and preparing for downstream population work.
 
-- select an `.xlsx` file
-- read it safely with `pandas`
+## Current Features
+
+- select an `.xlsx` file through the desktop picker
+- read the workbook with `pandas`
 - stop cleanly if the file cannot be read
-- validate the file against the expected `Menu Items` header list
-- run duplicate-cleaning logic after validation
+- validate the sheet against the expected `Menu Items` headers
+- trim whitespace on the current safe set of text-like columns
+- remove exact duplicates by `ItemName` and `Price`
+- surface same-name rows that still need review after exact-duplicate cleanup
 
-## Current Entry Point
+## Project Structure
 
-Run the app:
+- `main.py`: current entry point for the menu-items flow
+- `src/select_file.py`: file selection
+- `src/read_file.py`: Excel read logic and error handling
+- `src/validation.py`: expected column list and structure validation
+- `src/clean_file.py`: whitespace trimming and duplicate cleanup
+- `src/populate.py`: early draft of blank-only default filling
+- `tests/`: current automated tests
+- `CONTEXT.md`: future-Codex handoff context and user rules
+- `NEXT_STEPS.md`: immediate next work
+- `PROJECT_BLUEPRINT.md`: roadmap and product direction
+
+## Run The App
 
 ```powershell
 python main.py
 ```
 
-Run tests:
+## Run Tests
 
 ```powershell
 pytest
 ```
 
-## Current Code Areas
-
-- `main.py`: top-level flow
-- `src/select_file.py`: file picker
-- `src/read_file.py`: file reading and read errors
-- `src/validation.py`: structure validation for `Menu Items`
-- `src/clean_file.py`: duplicate cleaning and whitespace-trimming helpers
-- `tests/test_read_file.py`: current read-file tests
-
 ## Current Status
 
-- structure validation is wired into the app
-- duplicate cleaning is wired into the app
-- whitespace trimming exists as a helper but is not wired into the app flow yet
-- `read_file()` now returns a DataFrame on success
-- the read-file success test is stale and needs updating
+The project already has the core read -> validate -> trim -> duplicate-clean flow for `Menu Items`.
 
-## Project Docs
-
-- `README.md`: quick repo overview
-- `CONTEXT.md`: Codex handoff context
-- `NEXT_STEPS.md`: immediate next work
-- `PROJECT_BLUEPRINT.md`: roadmap and longer-term direction
-- `DOCS_SUBAGENT.md`: docs-only update rules
+The next major development area is population logic in [`src/populate.py`](/c:/Users/ADMIN/Documents/ProjectX/src/populate.py#L1), especially blank-only default filling and rule-based handling for fields like `KitchenPrinter`.

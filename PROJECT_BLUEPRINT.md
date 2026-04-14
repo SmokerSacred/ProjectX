@@ -1,14 +1,14 @@
 # ProjectX Blueprint
 
-This file is the roadmap for ProjectX.
+This file describes the intended direction of ProjectX.
 
-It should describe where the project is going, not repeat the current status line by line.
+It should explain the product vision, module progression, and future work shape without turning into a running status report or a copy of Codex instructions.
 
 ## Project Goal
 
-Build a small, practical spreadsheet workflow tool for restaurant and POS support work.
+Build a practical spreadsheet workflow tool for restaurant and POS support work.
 
-The tool should reduce repetitive manual cleanup by taking messy source spreadsheets and moving them toward a reliable, reusable output workflow.
+The goal is to reduce repetitive manual cleanup by taking messy source spreadsheets and moving them toward a reliable downstream output workflow.
 
 ## Long-Term Workflow
 
@@ -19,46 +19,46 @@ The intended end-to-end flow is:
 3. validate structure
 4. validate row-level business rules
 5. clean and standardize values
-6. transform the data into the needed shape
+6. transform the data into the required shape
 7. populate or produce an output file for downstream use
 
 ## Planned Modules
 
-The project is expected to grow in three modules:
+ProjectX is expected to grow in this order:
 
 1. `Menu Items`
 2. `Inventory Items`
 3. `Recipes`
 
-The build order should stay:
+The project should fully establish the workflow in `Menu Items` first, then reuse the lessons and structure in the later modules.
 
-1. finish `Menu Items`
-2. move to `Inventory Items`
-3. move to `Recipes`
+## Menu Items Progression
 
-## Menu Items Roadmap
-
-The `Menu Items` module is the current focus.
-
-Planned progression:
+The intended progression for the current module is:
 
 1. stable file selection and reading
-2. structure validation against the expected template
-3. duplicate detection and duplicate reporting
-4. trimming and normalization
+2. structure validation against the required template
+3. trimming and normalization
+4. duplicate detection and duplicate reporting
 5. row-level business validation
-6. cleaned output preparation
-7. template/output population
+6. cleaned-output preparation
+7. template or downstream-file population
 
-## Business Direction
+## Product Direction
 
-The project is not meant to be only a checker.
+ProjectX is not meant to be only a checker.
 
-The intended use is:
+The intended real-world use is:
 
-- data may be scraped or imported from one source
+- data may be scraped or exported from one source
 - that data should be cleaned and standardized
 - the cleaned result should help populate a more controlled destination file
+
+For `Menu Items`, the downstream population direction should favor:
+
+- preserving values that already exist
+- filling blank cells only
+- handling rule-based fields like `KitchenPrinter` separately from simple fixed defaults
 
 ## Design Principles
 
@@ -78,7 +78,7 @@ Priority order:
 4. make it useful
 5. add convenience later
 
-## Scope Guardrails
+## Scope Boundaries
 
 In scope:
 
@@ -98,21 +98,7 @@ Out of scope for now:
 
 ## Documentation Roles
 
-- `README.md`: repo overview
-- `CONTEXT.md`: handoff context for Codex
-- `NEXT_STEPS.md`: immediate next work
+- `README.md`: repo overview and how to run the project
+- `CONTEXT.md`: Codex handoff context, user rules, and documentation/teaching guidance
+- `NEXT_STEPS.md`: immediate next practical work
 - `PROJECT_BLUEPRINT.md`: roadmap and intended direction
-
-## Codex Guardrail
-
-- Codex must not change code in the user's code files without clear user approval
-- if approval has not been given, Codex may only add comments inside code files
-- this is a hard rule for future Codex sessions
-
-## Teaching Guardrail
-
-- Codex should teach by guiding, not by taking over
-- Codex should not give direct code answers unless the user clearly asks for them
-- Codex should not stop at saying there is an error; it should explain the missing concept, syntax, method, or parameter that the user likely needs next
-- Codex should give concrete hints when the user is stuck, while still leaving the final implementation decision to the user
-- Codex may use simple outside examples when they help explain a coding idea more clearly
