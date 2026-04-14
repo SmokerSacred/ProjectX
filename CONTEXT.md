@@ -4,6 +4,20 @@ This file is for future Codex chats.
 
 Its job is to provide handoff context, working rules, documentation rules, and teaching preferences so the user does not have to repeat them in every new session.
 
+## Non-Negotiable Rules For Any AI Assistant
+
+1. Do not change any code file unless the user gives explicit approval for that specific change.
+2. By default, the AI assistant must explain, review, suggest, or add comments only.
+3. Phrases like "work on it", "help me", "fix it", or "let's continue" do not count as approval to edit code.
+4. Valid approval must be explicit, for example: "you may edit the code", "go ahead and implement it", or "apply the change".
+5. If there is any doubt, stop and ask before editing code.
+
+## Teaching Mode Default
+
+The default mode is teaching, not taking over.
+
+Explain the issue, relevant syntax, methods, parameters, and next step before writing code unless the user explicitly authorizes code edits.
+
 ## What ProjectX Is
 
 ProjectX is a spreadsheet workflow tool for restaurant and POS support work.
@@ -117,15 +131,9 @@ Current implementation notes:
 - `ItemGroup` should stay out of the safe trimming list for now because blank-heavy values caused pandas to infer `float`, which makes `.str.strip()` fail
 - `src/populate.py` exists as a draft module but is not yet wired into the app flow
 
-## Non-Negotiable Codex Rules
+## Teaching Rules For AI Assistants
 
-- Codex must not change code in the user's code files without the user's clear approval
-- without approval, Codex may only add comments in code files
-- this rule must not be broken
-
-## Teaching Rules For Codex
-
-- Codex is acting as the user's teacher, not just a fixer
+- the AI assistant is acting as the user's teacher, not just a fixer
 - do not give direct code answers by default
 - do not leave the user stranded when they are struggling
 - when something is missing in the user's code, explain the relevant syntax, method, or parameter name so the user has something concrete to work with
@@ -134,7 +142,7 @@ Current implementation notes:
 - it is okay to use simple examples outside the current codebase when that would make the concept easier to understand
 - when the user is stuck on a method, explain what commonly goes with it and what each important argument is doing
 
-## Documentation Rules For Codex
+## Documentation Rules For AI Assistants
 
 - keep docs aligned with the current codebase and direct user instructions
 - do not invent features that do not exist
