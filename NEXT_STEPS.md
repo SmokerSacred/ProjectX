@@ -26,32 +26,31 @@ What is already working:
 
 What is not finished yet:
 
-- `src/populate.py` is still incomplete
-- population/default filling is not wired into the main flow
+- population/default filling is not wired into the main flow yet
 - row-level business validation does not exist yet
 - duplicate handling is not yet surfaced in a final user-friendly output format
 - tests currently cover read/validation only
 
 ## Immediate Next Focus
 
-The next real area of work should be the population step for `Menu Items`.
+The next real area of work should be wiring the population step into the `Menu Items` flow.
 
 That likely means:
 
-1. finish a first usable version of `src/populate.py`
-2. make it fill blank cells only
-3. preserve values that already exist
-4. handle `KitchenPrinter` as a conditional rule instead of a simple fixed default
-5. decide what the function should return so later export/highlighting work is still possible
+1. call `populate.autofill()` after cleanup in `main.py`
+2. decide how the populated data and `filled_vals` should be shown or returned
+3. confirm whether duplicate-review rows should be populated before or after separate reporting
+4. add tests for `src/populate.py`
+5. keep the flow scoped to `Menu Items`
 
 ## After Population
 
 Once the first population flow exists, the next likely work is:
 
-1. wire population into `main.py` after cleanup
-2. define row-level rules for important fields
-3. improve how duplicate-review rows are surfaced
-4. expand tests around cleaning and population behavior
+1. define row-level rules for important fields
+2. improve how duplicate-review rows are surfaced
+3. expand tests around cleaning and population behavior
+4. decide what final printed/exported output should look like
 
 ## Things Future Codex Should Remember
 

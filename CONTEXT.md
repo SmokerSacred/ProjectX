@@ -52,6 +52,7 @@ The app currently:
 - reports missing headers clearly
 - trims a safe list of text-like columns after structure validation
 - runs duplicate-cleaning logic after structure validation succeeds
+- supports a first working population pass in `src/populate.py`
 - prints the cleaned data and any remaining same-name rows that still need review
 
 ## Current Code Map
@@ -61,7 +62,7 @@ The app currently:
 - `src/read_file.py`: read logic and friendly error messages
 - `src/validation.py`: `expected_values` list and structure validation
 - `src/clean_file.py`: duplicate-cleaning logic and trimming helper
-- `src/populate.py`: incomplete draft of blank-only default filling
+- `src/populate.py`: blank-only default filling plus conditional `KitchenPrinter` handling
 - `tests/test_read_file.py`: read-file tests
 - `tests/test_validation.py`: structure-validation tests
 
@@ -129,7 +130,8 @@ Current implementation notes:
 - the spaced-name preference is a formatting preference, not a validation blocker
 - default `KitchenPrinter` behavior is usually `KOT` for food and `BOT` for beverages, with rare exceptions
 - `ItemGroup` should stay out of the safe trimming list for now because blank-heavy values caused pandas to infer `float`, which makes `.str.strip()` fail
-- `src/populate.py` exists as a draft module but is not yet wired into the app flow
+- `src/populate.py` now fills blank cells only, preserves pre-existing values in `filled_vals`, and applies conditional `KitchenPrinter` logic
+- population logic still is not wired into `main.py`
 
 ## Teaching Rules For AI Assistants
 

@@ -13,6 +13,8 @@ The current focus is the `Menu Items` workflow: selecting an Excel file, reading
 - trim whitespace on the current safe set of text-like columns
 - remove exact duplicates by `ItemName` and `Price`
 - surface same-name rows that still need review after exact-duplicate cleanup
+- fill blank default fields without overwriting existing values
+- infer `KitchenPrinter` as `KOT` or `BOT` when that field is blank and `PrintOnKot` is `Yes`
 
 ## Project Structure
 
@@ -21,7 +23,7 @@ The current focus is the `Menu Items` workflow: selecting an Excel file, reading
 - `src/read_file.py`: Excel read logic and error handling
 - `src/validation.py`: expected column list and structure validation
 - `src/clean_file.py`: whitespace trimming and duplicate cleanup
-- `src/populate.py`: early draft of blank-only default filling
+- `src/populate.py`: blank-only default filling and conditional `KitchenPrinter` handling
 - `tests/`: current automated tests
 - `CONTEXT.md`: future-Codex handoff context and user rules
 - `NEXT_STEPS.md`: immediate next work
@@ -41,6 +43,6 @@ pytest
 
 ## Current Status
 
-The project already has the core read -> validate -> trim -> duplicate-clean flow for `Menu Items`.
+The project already has the core read -> validate -> trim -> duplicate-clean flow for `Menu Items`, plus a first working population module for blank-only default filling.
 
-The next major development area is population logic in [`src/populate.py`](/c:/Users/ADMIN/Documents/ProjectX/src/populate.py#L1), especially blank-only default filling and rule-based handling for fields like `KitchenPrinter`.
+The next major development area is wiring that population step into [`main.py`](/c:/Users/ADMIN/Documents/ProjectX/main.py#L1) and deciding how the populated output and `filled_vals` log should be surfaced.

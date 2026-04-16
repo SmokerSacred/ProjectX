@@ -15,8 +15,13 @@ validation_result = validation.structure_validation(file_output)
 if validation_result is None:
     trimmed_data = clean_file.trim_whitespace(file_output)
     clean_data = clean_file.clean_duplicates(trimmed_data)
+
+    
+
+    populated_data = populate.autofill(clean_data)
+
     # Print the cleaned data plus any same-name rows that still need review.
-    print(clean_data)
+    #print(clean_data)
 
 else:
     print(validation_result)
