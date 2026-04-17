@@ -1,5 +1,6 @@
 import pandas as pd
 cols_defaults = {
+    #"CanApplyDiscount", "AutoApplySameDiscountOnModifier", "IsRateInclusive", "PrintOnReceipt", "PrintOnKot"
     "Yes": ["CanApplyDiscount", "AutoApplySameDiscountOnModifier", "IsRateInclusive", "PrintOnReceipt", "PrintOnKot"],
     "No": ["IsOpenPrice", "AskQuantity", "ExcludeFromTopSellingItems", "PrintOnLabel", "SoldByWeight", "HideContactless", "IsModifierItem", "Inactive"],
     0 : ["Cost", "MaxPrice", "MinPrice", "InventoryCount"],

@@ -16,12 +16,13 @@ if validation_result is None:
     trimmed_data = clean_file.trim_whitespace(file_output)
     clean_data = clean_file.clean_duplicates(trimmed_data)
 
-    
+    cleaned_data, duplicate_list = clean_data
 
-    populated_data = populate.autofill(clean_data)
+    populated_data = populate.autofill(cleaned_data)
 
+    prefilled_cells, populated_df = populated_data
     # Print the cleaned data plus any same-name rows that still need review.
-    #print(clean_data)
+    print(populated_df)
 
 else:
     print(validation_result)
