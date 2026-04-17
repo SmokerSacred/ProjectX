@@ -53,7 +53,8 @@ The app currently:
 - trims a safe list of text-like columns after structure validation
 - runs duplicate-cleaning logic after structure validation succeeds
 - supports a first working population pass in `src/populate.py`
-- prints the cleaned data and any remaining same-name rows that still need review
+- calls population from `main.py`
+- currently prints the populated DataFrame
 
 ## Current Code Map
 
@@ -131,13 +132,17 @@ Current implementation notes:
 - default `KitchenPrinter` behavior is usually `KOT` for food and `BOT` for beverages, with rare exceptions
 - `ItemGroup` should stay out of the safe trimming list for now because blank-heavy values caused pandas to infer `float`, which makes `.str.strip()` fail
 - `src/populate.py` now fills blank cells only, preserves pre-existing values in `filled_vals`, and applies conditional `KitchenPrinter` logic
-- population logic still is not wired into `main.py`
+- population logic is already wired into `main.py`
+- `duplicate_list` and `filled_vals` are reference datasets for cell highlighting in the final exported sheet, not separate end-user outputs
+- duplicate-review rows should be highlighted across the entire row with one constant duplicate color
+- `filled_vals` should highlight only the specific recorded cells with a separate constant fill color
 
 ## Teaching Rules For AI Assistants
 
 - the AI assistant is acting as the user's teacher, not just a fixer
 - do not give direct code answers by default
 - do not leave the user stranded when they are struggling
+- pay attention to Python best practices and use this project to teach them explicitly when they are relevant
 - when something is missing in the user's code, explain the relevant syntax, method, or parameter name so the user has something concrete to work with
 - if there is a teaching moment, guide the user through it instead of only saying something is wrong
 - give hints that are strong enough to unblock the user while still letting the user make the final coding decision
@@ -152,6 +157,7 @@ Current implementation notes:
 - preserve useful project history and handoff value
 - keep stable vision in `PROJECT_BLUEPRINT.md` and changing execution state in `NEXT_STEPS.md`
 - avoid repeating the same paragraph across multiple docs
+- when the user mentions a future-relevant rule or preference, update the most relevant doc and report what changed
 
 When docs conflict, trust sources in this order:
 

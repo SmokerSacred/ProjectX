@@ -60,6 +60,12 @@ For `Menu Items`, the downstream population direction should favor:
 - filling blank cells only
 - handling rule-based fields like `KitchenPrinter` separately from simple fixed defaults
 
+Across all supported file types, downstream output should also respect the POS file-size constraint:
+
+- each output file may contain at most 500 rows including the header row
+- when a result would exceed that limit, ProjectX should split it into multiple incrementally named files
+- this split behavior should be designed as a shared utility for `Menu Items`, `Inventory Items`, and `Recipes`
+
 ## Design Principles
 
 ProjectX should stay:

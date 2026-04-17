@@ -2,7 +2,7 @@
 
 ProjectX is a Python spreadsheet workflow tool for restaurant and POS support work.
 
-The current focus is the `Menu Items` workflow: selecting an Excel file, reading it safely, validating the expected structure, cleaning the data, and preparing for downstream population work.
+The current focus is the `Menu Items` workflow: selecting an Excel file, reading it safely, validating the expected structure, cleaning the data, and running a first population/default-filling pass.
 
 ## Current Features
 
@@ -43,6 +43,6 @@ pytest
 
 ## Current Status
 
-The project already has the core read -> validate -> trim -> duplicate-clean flow for `Menu Items`, plus a first working population module for blank-only default filling.
+The project already has the core read -> validate -> trim -> duplicate-clean -> populate flow for `Menu Items`.
 
-The next major development area is wiring that population step into [`main.py`](/c:/Users/ADMIN/Documents/ProjectX/main.py#L1) and deciding how the populated output and `filled_vals` log should be surfaced.
+The next major development area is deciding how the populated output, `filled_vals` log, and duplicate-review rows should be surfaced, then building shared output logic for the global 500-row POS limit.

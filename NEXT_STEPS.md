@@ -4,7 +4,7 @@ This file is for the next Codex session to know what to work on next without re-
 
 ## Current Working State
 
-The current app flow is:
+The current `Menu Items` app flow is:
 
 1. pick an `.xlsx` file
 2. read it with `pandas`
@@ -12,7 +12,8 @@ The current app flow is:
 4. validate `Menu Items` headers
 5. trim whitespace on the current safe column list
 6. run duplicate cleaning
-7. print the cleaned data plus duplicate-review rows
+7. run blank-only population/default filling
+8. print the populated data
 
 What is already working:
 
@@ -22,35 +23,27 @@ What is already working:
 - clean stop on read failure
 - structure validation against `src/validation.py`
 - whitespace trimming on the current safe text-column list
-- duplicate cleaning and duplicate-review output from `main.py`
+- duplicate cleaning
+- population/default filling from `main.py`
 
 What is not finished yet:
 
-- population/default filling is not wired into the main flow yet
+- export/output to Excel does not exist yet
 - row-level business validation does not exist yet
-- duplicate handling is not yet surfaced in a final user-friendly output format
+- duplicate and autofill reference points are not yet applied as highlights in the exported workbook
 - tests currently cover read/validation only
 
 ## Immediate Next Focus
 
-The next real area of work should be wiring the population step into the `Menu Items` flow.
+The next real area of work should be output/export for the `Menu Items` flow.
 
 That likely means:
 
-1. call `populate.autofill()` after cleanup in `main.py`
-2. decide how the populated data and `filled_vals` should be shown or returned
-3. confirm whether duplicate-review rows should be populated before or after separate reporting
-4. add tests for `src/populate.py`
-5. keep the flow scoped to `Menu Items`
-
-## After Population
-
-Once the first population flow exists, the next likely work is:
-
-1. define row-level rules for important fields
-2. improve how duplicate-review rows are surfaced
-3. expand tests around cleaning and population behavior
-4. decide what final printed/exported output should look like
+1. decide what the exported `Menu Items` workbook should contain
+2. use `duplicate_list` as reference data to highlight the entire duplicate-review row with a constant duplicate color
+3. use `filled_vals` as reference data to highlight only the specific recorded cells with a separate constant color
+4. design the export flow so it can later reuse the shared 500-row split rule
+5. add tests around cleaning/population before or alongside export work
 
 ## Things Future Codex Should Remember
 
