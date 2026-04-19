@@ -136,6 +136,8 @@ Current implementation notes:
 - `duplicate_list` and `filled_vals` are reference datasets for cell highlighting in the final exported sheet, not separate end-user outputs
 - duplicate-review rows should be highlighted across the entire row with one constant duplicate color
 - `filled_vals` should highlight only the specific recorded cells with a separate constant fill color
+- `src/export.py` is now the active area of work for writing the processed workbook and applying those highlights on the default worksheet
+- `src/export.py` now has a first working flow for writing the processed workbook, reopening it, applying duplicate-row and prefilled-cell highlights, and saving the styled file
 
 ## Teaching Rules For AI Assistants
 

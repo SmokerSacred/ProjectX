@@ -1,4 +1,4 @@
-from src import select_file, read_file, validation, clean_file, populate
+from src import select_file, read_file, validation, clean_file, populate, export
 import sys
 
 # Ask the user for an Excel file, then pass that path to the read layer.
@@ -21,8 +21,13 @@ if validation_result is None:
     populated_data = populate.autofill(cleaned_data)
 
     prefilled_cells, populated_df = populated_data
+
+    export_path = export.export_menu_items(populated_df, menu_path, duplicate_list, prefilled_cells)
+
+
     # Print the cleaned data plus any same-name rows that still need review.
-    print(populated_df)
+    print(f"Exported file saved to: {export_path}")
+
 
 else:
     print(validation_result)
