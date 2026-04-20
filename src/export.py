@@ -20,8 +20,8 @@ def apply_highlights(file_path, duplicates, prefilled):
     wb = load_workbook(file_path)
     ws = wb.active
 
-    yellow_fill = PatternFill(bgColor='FFFF00', fill_type="solid")
-    blue_fill = PatternFill(bgColor='48CAE4', fill_type="solid")
+    yellow_fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type="solid")
+    blue_fill = PatternFill(start_color='48CAE4', end_color='48CAE4', fill_type="solid")
 
     # Duplicate-review rows are highlighted across the full exported row.
     for idx in duplicates.index:
@@ -30,7 +30,7 @@ def apply_highlights(file_path, duplicates, prefilled):
             cell.fill = yellow_fill
 
     # Prefilled values highlight only the exact cell recorded in the tuple.
-    for idx, column, value in prefilled:
+    for idx, column, _ in prefilled:
         excel_row = idx + 2
         for header_cell in ws[1]:
             if header_cell.value == column:

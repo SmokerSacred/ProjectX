@@ -54,16 +54,20 @@ The app currently:
 - runs duplicate-cleaning logic after structure validation succeeds
 - supports a first working population pass in `src/populate.py`
 - calls population from `main.py`
-- currently prints the populated DataFrame
+- exports a processed workbook from `main.py`
+- reopens the exported workbook to highlight duplicate-review rows and prefilled cells
+- creates split workbook copies only when the processed file exceeds the 500-row POS limit
 
 ## Current Code Map
 
-- `main.py`: select file -> read file -> validate structure -> trim -> duplicate-clean -> print result
+- `main.py`: select file -> read file -> validate structure -> trim -> duplicate-clean -> populate -> export -> optional row split -> print saved path
 - `src/select_file.py`: Tkinter file picker
 - `src/read_file.py`: read logic and friendly error messages
 - `src/validation.py`: `expected_values` list and structure validation
 - `src/clean_file.py`: duplicate-cleaning logic and trimming helper
 - `src/populate.py`: blank-only default filling plus conditional `KitchenPrinter` handling
+- `src/export.py`: processed workbook export and Excel highlight styling
+- `global_src/row_limit.py`: shared workbook split helper for the 500-row POS limit
 - `tests/test_read_file.py`: read-file tests
 - `tests/test_validation.py`: structure-validation tests
 
@@ -136,8 +140,10 @@ Current implementation notes:
 - `duplicate_list` and `filled_vals` are reference datasets for cell highlighting in the final exported sheet, not separate end-user outputs
 - duplicate-review rows should be highlighted across the entire row with one constant duplicate color
 - `filled_vals` should highlight only the specific recorded cells with a separate constant fill color
-- `src/export.py` is now the active area of work for writing the processed workbook and applying those highlights on the default worksheet
-- `src/export.py` now has a first working flow for writing the processed workbook, reopening it, applying duplicate-row and prefilled-cell highlights, and saving the styled file
+- `src/export.py` now writes the processed workbook, reopens it, applies duplicate-row and prefilled-cell highlights, and saves the styled file
+- row alignment for export highlighting depends on reindexing after exact duplicate removal in `src/clean_file.py`
+- `global_src/row_limit.py` preserves values and fill colors when splitting oversized processed workbooks
+- the original `*_processed.xlsx` file is intentionally kept even when split copies are created
 
 ## Teaching Rules For AI Assistants
 

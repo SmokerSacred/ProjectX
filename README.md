@@ -2,7 +2,7 @@
 
 ProjectX is a Python spreadsheet workflow tool for restaurant and POS support work.
 
-The current focus is the `Menu Items` workflow: selecting an Excel file, reading it safely, validating the expected structure, cleaning the data, and running a first population/default-filling pass.
+The current focus is the `Menu Items` workflow: selecting an Excel file, reading it safely, validating the expected structure, cleaning the data, populating blank defaults, and exporting a processed workbook.
 
 ## Current Features
 
@@ -15,6 +15,9 @@ The current focus is the `Menu Items` workflow: selecting an Excel file, reading
 - surface same-name rows that still need review after exact-duplicate cleanup
 - fill blank default fields without overwriting existing values
 - infer `KitchenPrinter` as `KOT` or `BOT` when that field is blank and `PrintOnKot` is `Yes`
+- export a processed Excel file next to the source workbook
+- highlight duplicate-review rows and prefilled cells in the exported workbook
+- create numbered split workbook copies when the processed export exceeds the 500-row POS limit
 
 ## Project Structure
 
@@ -24,6 +27,8 @@ The current focus is the `Menu Items` workflow: selecting an Excel file, reading
 - `src/validation.py`: expected column list and structure validation
 - `src/clean_file.py`: whitespace trimming and duplicate cleanup
 - `src/populate.py`: blank-only default filling and conditional `KitchenPrinter` handling
+- `src/export.py`: processed workbook export and highlight styling
+- `global_src/row_limit.py`: shared workbook splitting for oversized exports
 - `tests/`: current automated tests
 - `CONTEXT.md`: future-Codex handoff context and user rules
 - `NEXT_STEPS.md`: immediate next work
@@ -43,6 +48,6 @@ pytest
 
 ## Current Status
 
-The project already has the core read -> validate -> trim -> duplicate-clean -> populate flow for `Menu Items`.
+The project already has the core read -> validate -> trim -> duplicate-clean -> populate -> export flow for `Menu Items`, including workbook highlighting and conditional row-limit splitting.
 
-The next major development area is deciding how the populated output, `filled_vals` log, and duplicate-review rows should be surfaced, then building shared output logic for the global 500-row POS limit.
+The next major development area is hardening the current flow with broader real-file testing, better messaging, and practical export tests.
